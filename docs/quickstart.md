@@ -83,8 +83,9 @@ Releases are on the master branch and are updated about every three months. Blee
     virtualenv venv
     source venv/bin/activate
     pip install --upgrade setuptools
+    pip install --upgrade urllib3[secure]   # to prevent InsecurePlatformWarning
     pip install google-compute-engine  # Only required on GCP
-    python setup.py install
+    python setup.py develop
 
 ### Compile (or Download) the web UI
 
