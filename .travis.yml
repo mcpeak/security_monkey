@@ -20,23 +20,33 @@ env:
   global:
     - PIP_DOWNLOAD_CACHE=".pip_download_cache"
     - SECURITY_MONKEY_SETTINGS=`pwd`/env-config/config.py
-    - DOCKER_COMPOSE_VERSION: 1.11.2
+    - DOCKER_COMPOSE_VERSION=1.11.2
 
 install:
   - sed -i '/WTF_CSRF_ENABLED = True/c\WTF_CSRF_ENABLED = False' `pwd`/env-config/config.py
 
 before_install:
-  - docker-compose --version
-  # - sudo apt-get -qq update
+  - sudo apt-get -qq update
   # Now we can install the newer docker-engine which is required for the newer
   # docker-composer we will install next. The messy options are to force it to
   # be non-interactive (normally it asks you a bunch of config questions).
-  # - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  
+  # Check that docker-compose is now running the latest version (or at least the
+  # one we specified). This is not to be confused with the version we printed
+  # before doing the update.
+  - docker-compose --version
+  - docker-compose build
+  
   # - sudo apt-get install -y libxml2-dev libxmlsec1-dev
   - sudo mkdir -p /var/log/security_monkey/
   - sudo touch /var/log/security_monkey/securitymonkey.log
   - sudo chown travis /var/log/security_monkey/securitymonkey.log
-  - docker-compose build
 
 before_script:
   - psql -c "CREATE DATABASE secmonkey;" -U postgres
