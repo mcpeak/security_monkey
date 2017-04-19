@@ -30,6 +30,7 @@ before_install:
   - sudo mkdir -p /var/log/security_monkey/
   - sudo touch /var/log/security_monkey/securitymonkey.log
   - sudo chown travis /var/log/security_monkey/securitymonkey.log
+  - docker-compose build
 
 before_script:
   - psql -c "CREATE DATABASE secmonkey;" -U postgres
@@ -44,7 +45,6 @@ before_script:
 
 script:
   - sh env_tests/test_dart.sh
-  - docker-compose build
   - coverage run -a -m py.test security_monkey/tests/auditors || exit 1
   - coverage run -a -m py.test security_monkey/tests/watchers || exit 1
   - coverage run -a -m py.test security_monkey/tests/core || exit 1
