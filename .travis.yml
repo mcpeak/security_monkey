@@ -39,7 +39,7 @@ before_install:
   # - sudo mv docker-compose /usr/local/bin
   
   
-  - cat "AWS_ACCESS_KEY_ID=\nAWS_SECRET_ACCESS_KEY=\nSECURITY_MONKEY_POSTGRES_HOST=postgres\nSECURITY_MONKEY_FQDN=127.0.0.1\nSESSION_COOKIE_SECURE=False\n"> /home/travis/build/Netflix/security_monkey/secmonkey.env
+  - cat "AWS_ACCESS_KEY_ID=\nAWS_SECRET_ACCESS_KEY=\nSECURITY_MONKEY_POSTGRES_HOST=postgres\nSECURITY_MONKEY_FQDN=127.0.0.1\nSESSION_COOKIE_SECURE=False\n" > secmonkey.env
   # Check that docker-compose is now running the latest version (or at least the
   # one we specified). This is not to be confused with the version we printed
   # before doing the update.
