@@ -24,6 +24,13 @@ v0.9.1 (2017-04-20)
 Important Notes:
  - This is a hotfix release to correct a number of installation difficulties reported since `0.9.0`.
 
+Contributors:
+- @redixin
+- @AlexCline
+- @willbengtson
+- @mcpeak
+- @mikegrima
+- @monkeysecurity
 
 v0.9.0 (2017-04-13)
 ----------------------------------------
